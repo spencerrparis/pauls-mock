@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apex Neon | Epicurean Themes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#order">Order</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-body-container">
+            <h1 class="neon-title">APEX NEON</h1>
+            
+            <section id="order">
+                <div class="flicker-strip"></div>
+                <form action="process_booking.php" method="POST" class="neon-form">
+                    <input type="text" name="customer_name" placeholder="NAME" required>
+                    <input type="date" name="res_date" required>
+                    <button type="submit">CONFIRM RESERVATION</button>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

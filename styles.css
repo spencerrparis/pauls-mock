@@ -65,3 +65,34 @@ button {
     font-weight: bold;
     cursor: pointer;
 }
+/* Styling for both pages */
+.flicker-strip {
+    height: 2px;
+    background: #00f2ff;
+    box-shadow: 0 0 10px #00f2ff, 0 0 20px #00f2ff;
+    margin: 10px 0;
+    animation: neon-flicker 1.5s infinite alternate;
+}
+
+@keyframes neon-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+    20%, 22%, 24%, 55% { opacity: 0.2; }
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.admin-card {
+    border: 1px solid #ff00ff;
+    background: rgba(255, 0, 255, 0.05);
+    padding: 20px;
+}
+
+.table-status.vacant { color: #00ff00; border: 1px solid #00ff00; }
+.table-status.occupied { color: #ff0000; border: 1px solid #ff0000; }
+.table-status.reserved { color: #ffff00; border: 1px solid #ffff00; }
