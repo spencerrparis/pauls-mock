@@ -1,5 +1,5 @@
-CREATE DATABASE apex_neon;
-USE apex_neon;
+CREATE DATABASE epicurean_themes;
+USE epicurean_themes;
 
 DROP TABLE IF EXISTS Reservations;
 DROP TABLE IF EXISTS MenuItems;
