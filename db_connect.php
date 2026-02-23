@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "epicurean_themes";
+$dbname = "mock_db";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
