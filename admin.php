@@ -2,12 +2,13 @@
 session_start();
 include 'db_connect.php';
 
-// SECURITY CHECK: Kick out anyone not logged in OR anyone who isn't a Manager (Role 1)
-if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 1) {
-    header("Location: login.php");
+if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) 
+{
+    header("Location: index.php");
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +40,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 1) {
                 </tr>
                 <?php
                 $res = mysqli_query($conn, "SELECT * FROM Reservations ORDER BY reservation_date DESC");
-                while($row = mysqli_fetch_assoc($res)) {
+                while($row = mysqli_fetch_assoc($res)) 
+                {
                     echo "<tr>
                             <td>USER_{$row['user_id']}</td>
                             <td>{$row['guest_count']}</td>
@@ -57,7 +59,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 1) {
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <?php
                     $tables = mysqli_query($conn, "SELECT * FROM DiningTables");
-                    while($t = mysqli_fetch_assoc($tables)) {
+                    while($t = mysqli_fetch_assoc($tables)) 
+                    {
                         $class = ($t['is_active']) ? 'vacant' : 'occupied';
                         echo "<div class='table-box $class'>T-{$t['table_number']}</div>";
                     }

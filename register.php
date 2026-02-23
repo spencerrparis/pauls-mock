@@ -3,41 +3,40 @@ session_start();
 include 'db_connect.php';
 
 $message = "";
-$status_color = "var(--neon-cyan)";
+$status_class = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name  = mysqli_real_escape_string($conn, $_POST['full_name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+    $name  = mysqli_real_escape_string($conn, trim($_POST['full_name']));
+    $email = mysqli_real_escape_string($conn, trim($_POST['email']));
     $pass  = $_POST['password'];
-    $phone = mysqli_real_escape_string($conn, $_POST['phone_number']);
-
-    // Check if email already exists
-    $check_email = mysqli_query($conn, "SELECT email FROM Users WHERE email = '$email'");
     
-    if (mysqli_num_rows($check_email) > 0) 
+    // Check if email already exists
+    $check_query = "SELECT email FROM users WHERE email = '$email' LIMIT 1";
+    $check_result = mysqli_query($conn, $check_query);
+
+    if (mysqli_num_rows($check_result) > 0) 
     {
-        $message = "ERROR: EMAIL ALREADY REGISTERED";
-        $status_color = "#ff4444";
+        $message = "SYSTEM ERROR: This email is already registered to an account.";
+        $status_class = "error-msg";
     } 
     else 
     {
-        // Hash password
         $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
-        
         $role_id = 2; 
 
-        $sql = "INSERT INTO Users (role_id, full_name, email, password_hash, phone_number) 
-                VALUES ('$role_id', '$name', '$email', '$hashed_pass', '$phone')";
+        $sql = "INSERT INTO users (role_id, full_name, email, password_hash) 
+                VALUES ('$role_id', '$name', '$email', '$hashed_pass')";
 
         if (mysqli_query($conn, $sql)) 
         {
-            $message = "REGISTRATION SUCCESSFUL. PROCEED TO LOGIN.";
-            $status_color = "#00ff00";
+            $message = "REGISTRATION SUCCESSFUL! ACCESS GRANTED.";
+            $status_class = "success-msg";
         } 
         else 
         {
-            $message = "SYSTEM ERROR: UNABLE TO REGISTER";
-            $status_color = "#ff4444";
+            $message = "CRITICAL ERROR: Registration failed. Please contact admin.";
+            $status_class = "error-msg";
         }
     }
 }

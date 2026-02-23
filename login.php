@@ -4,24 +4,26 @@ include 'db_connect.php';
 
 $error = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
     $sql = "SELECT * FROM Users WHERE email = '$email' LIMIT 1";
     $result = mysqli_query($conn, $sql);
 
-    if ($result && mysqli_num_rows($result) > 0) {
+    if ($result && mysqli_num_rows($result) > 0) 
+    {
         $user = mysqli_fetch_assoc($result);
         
-        if (password_verify($password, $user['password_hash'])) {
-            // Set Session Variables
+        if (password_verify($password, $user['password_hash'])) 
+        {
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['full_name'] = $user['full_name'];
             $_SESSION['role_id'] = $user['role_id'];
 
-            // Redirect based on role (1 = Manager/Staff, 3 = Customer)
-            if ($_SESSION['role_id'] == 1)
+            // Role 1 gets Admin access
+            if ($_SESSION['role_id'] == 1) 
             {
                 header("Location: admin.php");
             } 
@@ -30,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: index.php");
             }
             exit();
-        } 
+        }
         else 
         {
             $error = "ACCESS DENIED: INVALID CREDENTIALS";
