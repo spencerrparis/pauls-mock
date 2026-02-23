@@ -8,7 +8,8 @@ $dbname = "epicurean_themes";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // Check connection
-if (!$conn) {
+if (!$conn) 
+{
     die("Connection failed: " . mysqli_connect_error());
 }
 

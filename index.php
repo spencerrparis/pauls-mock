@@ -24,18 +24,18 @@ include 'db_connect.php';
     </nav>
 </aside>
 
-<div class="main-body-container">
+<main class="main-body-container">
     
     <header id="home">
         <h1 class="neon-title">APEX NEON</h1>
         <div class="intro-box">
             <div class="flicker-strip"></div>
-            <p>Introductory text: Experience the fusion of flavor and light in our high-tech bistro.</p>
+            <p>Experience the fusion of flavor and light in our high-tech bistro.</p>
             <div style="margin-top: 20px;">
                 <?php if(isset($_SESSION['full_name'])): ?>
-                    <span style="color: var(--neon-cyan)">LOGGED IN AS: <?php echo strtoupper($_SESSION['full_name']); ?></span>
+                    <span style="color: var(--neon-cyan)">STAFF: <?php echo strtoupper($_SESSION['full_name']); ?> | <a href="admin.php" style="color:white;">DASHBOARD</a></span>
                 <?php else: ?>
-                    <a href="login.php" style="color: var(--neon-pink); text-decoration: none;">STAFF LOGIN / SIGN UP</a>
+                    <a href="login.php" style="color: var(--neon-pink); text-decoration: none;">STAFF LOGIN</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -48,10 +48,11 @@ include 'db_connect.php';
             <div class="flicker-box"></div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
             <?php
             $categories = ['Small Dishes', 'Main Dishes', 'Drinks'];
-            foreach($categories as $cat) {
+            foreach($categories as $cat) 
+            {
                 echo "<div>";
                 echo "<h3 style='color: var(--neon-cyan); border-bottom: 1px solid #333; padding-bottom: 10px;'>" . strtoupper($cat) . "</h3>";
                 
@@ -60,16 +61,12 @@ include 'db_connect.php';
                         WHERE c.category_name = '$cat' AND m.is_available = 1";
                 $result = mysqli_query($conn, $sql);
                 
-                if(mysqli_num_rows($result) > 0) {
-                    while($item = mysqli_fetch_assoc($result)) {
-                        echo "<div style='margin: 15px 0;'>
-                                <strong>{$item['name']}</strong><br>
-                                <small style='color:#888'>{$item['description']}</small><br>
-                                <span style='color: var(--neon-pink)'>£" . number_format($item['price'], 2) . "</span>
-                              </div>";
-                    }
-                } else {
-                    echo "<p style='color:#444'>Data pending...</p>";
+                while($item = mysqli_fetch_assoc($result)) 
+                {
+                    echo "<div style='margin: 15px 0;'>
+                            <strong>{$item['name']}</strong><br>
+                            <span style='color: var(--neon-pink)'>£" . number_format($item['price'], 2) . "</span>
+                          </div>";
                 }
                 echo "</div>";
             }
@@ -89,7 +86,7 @@ include 'db_connect.php';
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <input type="date" name="res_date" required>
-                <input type="number" name="guests" placeholder="NUMBER OF GUESTS" min="1" required>
+                <input type="number" name="guests" placeholder="GUESTS" min="1" required>
             </div>
             <button type="submit" class="confirm-btn" style="margin-top: 20px;">CONFIRM RESERVATION</button>
         </form>
@@ -98,26 +95,28 @@ include 'db_connect.php';
     <section id="about" style="margin-top: 150px; padding-bottom: 100px;">
         <div class="flicker-strip"></div>
         <h2>SYSTEM INFO</h2>
-        <p>Apex Neon is a data-driven dining experience. Built for Task 2.</p>
+        <p>Apex Neon is a data-driven dining experience. Built for Task 2 Epicurean Themes.</p>
     </section>
 
-</div>
+</main>
 
 <script>
-    // Logic to show sidebar when "About" section is visible
-    window.onscroll = function() {
+    window.onscroll = function() 
+    {
         var aboutSection = document.getElementById("about");
         var sidebar = document.querySelector(".sidebar");
         var position = aboutSection.getBoundingClientRect();
 
-        // Show sidebar if About section has scrolled into view
-        if (position.top <= (window.innerHeight || document.documentElement.clientHeight)) {
+        // Reveal sidebar as user approaches the bottom of the page
+        if (position.top <= (window.innerHeight + 100)) 
+        {
             sidebar.style.opacity = "1";
-        } else {
+        } 
+        else 
+        {
             sidebar.style.opacity = "0";
         }
     };
 </script>
-
 </body>
 </html>

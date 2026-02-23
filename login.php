@@ -4,27 +4,34 @@ include 'db_connect.php';
 
 $error = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
     $sql = "SELECT * FROM Users WHERE email = '$email' LIMIT 1";
     $result = mysqli_query($conn, $sql);
 
-    if ($result && mysqli_num_rows($result) > 0) {
+    if ($result && mysqli_num_rows($result) > 0) 
+    {
         $user = mysqli_fetch_assoc($result);
         
         // This checks the hashed password in the DB against what the user typed
-        if (password_verify($password, $user['password_hash'])) {
+        if (password_verify($password, $user['password_hash'])) 
+        {
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['full_name'] = $user['full_name'];
             
             header("Location: admin.php");
             exit();
-        } else {
+        } 
+        else 
+        {
             $error = "ACCESS DENIED: INVALID CREDENTIALS";
         }
-    } else {
+    } 
+    else 
+    {
         $error = "ACCESS DENIED: INVALID CREDENTIALS";
     }
 }
