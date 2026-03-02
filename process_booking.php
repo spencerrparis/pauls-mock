@@ -9,7 +9,7 @@
         $time    = mysqli_real_escape_string($conn, $_POST['time']);
         $guests  = mysqli_real_escape_string($conn, $_POST['guests']);
 
-        $sql = "INSERT INTO bookings (user_id, booking_date, booking_time, guests) 
+        $sql = "INSERT INTO reservations (user_id, booking_date, booking_time, guests) 
                 VALUES ('$user_id', '$date', '$time', '$guests')";
 
         if (mysqli_query($conn, $sql)) 
