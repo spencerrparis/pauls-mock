@@ -118,7 +118,7 @@ include 'db_connect.php';
 </div>
 
 <script>
-    // 1. AJAX BOOKING LOGIC (STOPS REDIRECT)
+    // booking
     document.addEventListener('DOMContentLoaded', function() 
     {
         const resForm = document.getElementById('reservationForm');
